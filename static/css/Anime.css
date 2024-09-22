@@ -1,0 +1,40 @@
+body {
+    background: linear-gradient(to right, rgba(216,219,169,1) 0%, rgba(216,219,169,1) 34%, rgba(216,219,169,1) 38%, rgba(191,203,11,1) 100%);
+    background-color: powderblue; /* Fallback for browsers not supporting gradients */
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.93);
+    border-radius: 0px 191px 10px 122px; /* Rounded corners for body */
+    margin: 0; /* Remove default margin from body */
+    padding: 20px; /* Add some padding for content */
+  }
+  
+  h1 {
+    color: blue;
+    text-align: center;
+    font-size: 2em; /* Increase heading size */
+    margin-bottom: 20px; /* Add some space after heading */
+  }
+  
+  p {
+    border: none; /* Remove border defined earlier */
+    margin: 15px; /* Adjust margin for paragraphs */
+    padding: 20px; /* Add padding for better readability */
+    font-size: 1.1em; /* Set a comfortable font size for paragraphs */
+  }
+  
+  .content {
+    background-color: white; /* White background for content section */
+    border-radius: 20px; /* Rounded corners for content area */
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.2); /* Subtle inner shadow */
+    padding: 30px; /* Add some padding for content within */
+  }
+  
+  header, main, footer {
+    display: flex; /* Use flexbox for layout flexibility */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+  }
+  
+  footer p {
+    font-size: 0.8em; /* Smaller font size for copyright text */
+    text-align: center;
+  }
