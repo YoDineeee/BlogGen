@@ -1,12 +1,7 @@
 from django.urls import path
-from . import views
+from . import donation_view, thank_you
 
-# urlpatterns = [
-#          path("", views.index, name='Index'),
-#          path("login", views.login, name='login'),
-#          path("signup", views.signup, name='signup'),
-#          path("blogDetails", views.blogDetails, name='blogDetails'),
-#          path("postHistory", views.postHistory, name='postHistory'),
-
-        
-# ]
+urlpatterns = [
+    path('donate/', donation_view, name='donate'),
+    path('thank_you/', thank_you, name='thank_you'),
+]

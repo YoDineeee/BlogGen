@@ -1,28 +1,65 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static 'css/Anime.css' %}">
+    <title>Task List with Timer</title>
+    <link rel="stylesheet" href="{% static 'css/test.css' %}">
+    <link rel="stylesheet" href="{% static 'css/test.css' %}"> <!-- Include your sidebar styles -->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our Website</h1>
-    </header>
-    <main>
-        <section class="content">
-            <p>Explore our site to learn more about what we offer.</p>
-            <p>Click on the links below to access different sections:</p>
-            <ul>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/account">My Account</a></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; SmartWork</p>
-    </footer>
+
+<div class="wrapper">
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+        <h2>Sidebar</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="#"><i class="fas fa-donate"></i>Donate</a></li> <!-- New donate option -->
+            <li><a href="#"><i class="fas fa-user-plus"></i>Meet the Creator</a></li> <!-- New meet the creator option -->
+            <li><a href="#"><i class="fas fa-users"></i>Online Options</a></li> <!-- New online option -->
+        </ul>
+      
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main_content">
+        <div class="header">Welcome!! Have a nice day.</div>  
+        
+        <h2>Task List</h2>
+        <input type="text" id="taskInput" placeholder="Enter a new task" />
+        <button onclick="addTask()">Add Task</button>
+        <div id="taskList"></div>
+
+        <!-- Timer Section -->
+        <div class="timer-section">
+            <h3>Focus Timer</h3>
+            <select id="timerOptions">
+                <option value="1200,300">20 mins work, 5 mins break</option>
+                <option value="3600,900">1 hr work, 15 mins break</option>
+                <option value="14400,3600">4 hrs work, 1 hr break</option>
+            </select>
+            <button onclick="startTimer()">Start Timer</button>
+            <button onclick="pauseTimer()">Pause Timer</button>
+            <div id="timerDisplay">00:00</div>
+        </div>
+
+        <!-- Audio Player Section -->
+        <div class="audio-player">
+            <h3>Enjoy Some Music</h3>
+            <audio controls>
+                <source src="{% static 'audio/song1.mp3' %}" type="audio/mp3">
+                <source src="{% static 'audio/song2.ogg' %}" type="audio/ogg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+       
+    </div>
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
