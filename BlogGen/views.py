@@ -1,18 +1,27 @@
-#from  django.http import HttpResponse
-from django.shortcuts import render
 
-def homepage (request):
+    
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+
+
+def home (request):
     return render(request,'home.html')
-     #return HttpResponse("helloworld")
     
 
+def Online(request):
+    return render(request,'online.html')
 
-def about (request):
-    return render(request,'about.html')
-    #return HttpResponse("hello dine")
-    
 
-def account (request):
-    return render(request,'account.html')
-     #return HttpResponse("googogaga")
-    
+
+def Meetme(request):
+    return render(request,'Meetme.html')
+
+
+def Accounts(request):
+    return render(request,'Accounts.html')
+
+
+def top_doners(request):
+    return render(request,'top_doners.html')
+
+

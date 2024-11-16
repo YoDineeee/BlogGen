@@ -1,28 +1,382 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static 'css/Anime.css' %}">
+    <title>Task List with Timer</title>
+    
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/Time.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Bar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/TodoList.css' %}">
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #756AB6;
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+        }
+
+        .top-bar button {
+            background-color: #AC87C5;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .top-bar button:hover {
+            background-color: #E0AED0;
+        }
+
+        .main_content {
+            padding: 20px;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .task-section, .timer-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #FFE5E5;
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .timer-section select, 
+        .task-section input[type="text"], 
+        button {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 8px 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #AC87C5;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #E0AED0;
+        }
+
+        .audio-player {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #FFE5E5;
+            text-align: center;
+        }
+
+        .audio-player audio {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our Website</h1>
-    </header>
-    <main>
-        <section class="content">
-            <p>Explore our site to learn more about what we offer.</p>
-            <p>Click on the links below to access different sections:</p>
-            <ul>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/account">My Account</a></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; SmartWork</p>
-    </footer>
+    <!-- Top Bar Section -->
+    <nav>
+        <button type="button" title="Donate" onclick="location.href='/donate'">
+          <span>Donate</span>
+          <span class="material-symbols-outlined" aria-hidden="true">volunteer_activism</span>
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <g>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath">Donate</textPath>
+              </text>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath" startOffset="50%">Donate</textPath>
+              </text>
+            </g>
+          </svg>
+        </button>
+        <button type="button" title="Account" onclick="location.href='/account'">
+          <span>Account</span>
+          <span class="material-symbols-outlined" aria-hidden="true">person</span>
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <g>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath">Account</textPath>
+              </text>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath" startOffset="50%">Account</textPath>
+              </text>
+            </g>
+          </svg>
+        </button>
+        <button type="button" title="Online" onclick="location.href='/online'">
+          <span>Online</span>
+          <span class="material-symbols-outlined" aria-hidden="true">wifi</span>
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <g>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath">Online</textPath>
+              </text>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath" startOffset="50%">Online</textPath>
+              </text>
+            </g>
+          </svg>
+        </button>
+        <button type="button" title="Top Donors" onclick="location.href='/topdoners'">
+          <span>Top Donors</span>
+          <span class="material-symbols-outlined" aria-hidden="true">star</span>
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <g>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath">Top Donors</textPath>
+              </text>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath" startOffset="50%">Top Donors</textPath>
+              </text>
+            </g>
+          </svg>
+        </button>
+        <button type="button" title="Meet Me" onclick="location.href='/meetme'">
+          <span>Meet Me</span>
+          <span class="material-symbols-outlined" aria-hidden="true">face</span>
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <g>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath">Meet Me</textPath>
+              </text>
+              <text fill="currentColor">
+                <textPath xlink:href="#circlePath" startOffset="50%">Meet Me</textPath>
+              </text>
+            </g>
+          </svg>
+        </button>
+      </nav>
+      
+      <!-- SVG template -->
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300" width="0" height="0">
+        <defs>
+          <path id="circlePath" d="M 150, 150 m -50, 0 a 50,50 0 0,1 100,0 a 50,50 0 0,1 -100,0" />
+        </defs>
+      </svg>
+      
+    <!-- Main Content Section -->
+    <div class="main_content">
+        <div class="content-container">
+            <!-- Timer Section -->
+            <div class="timer-section">
+                <h3>Focus Timer</h3>
+                <select id="timerOptions">
+                    <option value="1200,300">20 mins work, 5 mins break</option>
+                    <option value="3600,900">1 hr work, 15 mins break</option>
+                    <option value="14400,3600">4 hrs work, 1 hr break</option>
+                </select>
+                <button onclick="startTimer()">Start Timer</button>
+                <button onclick="pauseTimer()">Pause Timer</button>
+
+                <div class="clock">
+                    <div class="clock-item">
+                        <p><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Section -->
+            
+                <div class="app">
+                  <div class="info">
+                    <div class="date">
+                      <p id="day"><span id="today">Sunday,</span><span id="daymonth"> 30th</span></p>
+                      <p id='month'>January</p>
+                    </div>
+                    <div class="info-bottom">
+                      <div class="left">
+                        <p id="count">7</p>
+                        <p id="tasks">Total</p>
+                      </div>
+                      <div class="middle">
+                        <p id="remaining_done">5</p>
+                        <p id="remaining_tasks">Remaining</p>
+                      </div>
+                      <div class="right">
+                        <p id="count_done">2</p>
+                        <p id="tasks_done">Done</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <ul>
+                    <p id="today2"><strong>Tasks</strong> for today</p>
+                    <li class="lihiden">
+                      <a href="" class="check_button" onmousedown="return false">
+                        <i class="fa fa-check-circle mark" aria-hidden="true"></i>
+                      </a>
+                      <div class="right">
+                        <p contenteditable="true">Buy milk</p>
+                      </div>
+                      <span class="delete_button" onmousedown='return false'>
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                      </span>
+                    </li>
+                    
+                    <li class="lihiden">
+                      <a href="" class="check_button" onmousedown="return false">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                      </a>
+                      <div class="right">
+                        <p contenteditable="true">Buy bread</p>
+                      </div>
+                      <span class="delete_button" onmousedown='return false'>
+                       <i class="fa fa-times-circle" aria-hidden="true"></i>
+                      </span>
+                    </li>
+                    
+                    <li class="lihiden">
+                      <a href="" class="check_button" onmousedown="return false">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                      </a>
+                      <div class="right">
+                        <p contenteditable="true">Pay the bills</p>
+                      </div>
+                      <span class="delete_button" onmousedown='return false'>
+                       <i class="fa fa-times-circle" aria-hidden="true"></i>
+                      </span>
+                    </li>
+                    
+                    <li class="lihiden">
+                      <a href="" class="check_button" onmousedown="return false">
+                        <i class="fa fa-check-circle mark" aria-hidden="true"></i>
+                      </a>
+                      <div class="right">
+                        <p contenteditable="true">Go to barber shop</p>
+                      </div>
+                      <span class="delete_button" onmousedown='return false'>
+                       <i class="fa fa-times-circle" aria-hidden="true"></i>
+                      </span>
+                    </li>
+                    
+                    <li class="lihiden">
+                      <a href="" class="check_button" onmousedown="return false">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                      </a>
+                      <div class="right">
+                        <p contenteditable="true">Take a break</p>
+                      </div>
+                      <span class="delete_button" onmousedown='return false'>
+                       <i class="fa fa-times-circle" aria-hidden="true"></i>
+                      </span> 
+                    </li>
+                    
+                    <li class="lihiden">
+                      <a href="" class="check_button" onmousedown="return false">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                      </a>
+                      <div class="right">
+                        <p contenteditable="true">Conquer the World</p>
+                      </div>
+                      <span class="delete_button" onmousedown='return false'>
+                       <i class="fa fa-times-circle" aria-hidden="true"></i>
+                      </span>
+                    </li>
+                    
+                    <li class="lihiden">
+                      <a href="" class="check_button" onmousedown="return false">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                      </a>
+                      <div class="right">
+                        <p contenteditable="true">Conquer the Galaxy</p>
+                      </div>
+                      <span class="delete_button" onmousedown='return false'>
+                       <i class="fa fa-times-circle" aria-hidden="true"></i>
+                      </span>
+                    </li>
+                    
+                  </ul>
+                  
+                  <div class="bottom">
+                    <a href="" id="add-new" onmousedown="return false">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      Add new item
+                    </a>
+                  </div>
+                  
+                </div>
+                
+                  
+                </div>
+              </div>
+
+        <!-- Audio Player Section -->
+        <div class="audio-player">
+            <h3>Enjoy Some Music</h3>
+            <audio controls>
+                <source src="{% static 'audio/song1.mp3' %}" type="audio/mp3">
+                <source src="{% static 'audio/song2.ogg' %}" type="audio/ogg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://www.jqueryscript.net/demo/Modern-Circular-jQuery-Countdown-Timer-Plugin-Final-Countdown/js/kinetic.js"></script>
+    <script src="https://www.jqueryscript.net/demo/Modern-Circular-jQuery-Countdown-Timer-Plugin-Final-Countdown/jquery.final-countdown.js"></script>
+
+    <script>
+        function startTimer() {
+            // Implement timer start logic
+            alert("Timer started!");
+        }
+
+        function pauseTimer() {
+            // Implement timer pause logic
+            alert("Timer paused!");
+        }
+
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskList = document.getElementById('taskList');
+
+            if (taskInput.value.trim() !== "") {
+                const li = document.createElement('li');
+                li.textContent = taskInput.value;
+                taskList.appendChild(li);
+                taskInput.value = '';
+            }
+        }
+    </script>
+
+    <script src="{% static 'js/Time.js' %}"></script>
+    <script src="{% static 'js/TodoList.js' %}"></script>
 </body>
 </html>

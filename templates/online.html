@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Online Meeting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        input[type="text"] {
+            margin: 10px 0;
+            padding: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Join an Online Meeting</h1>
+        <button id="joinExisting">Join Existing Meeting</button>
+        <button id="joinSpecific">Join Specific Meeting</button>
+        
+        <div id="joinSpecificForm" style="display:none; margin-top: 20px;">
+            <h2>Enter Meeting Code</h2>
+            <input type="text" id="meetingCode" placeholder="Meeting Code">
+            <button onclick="joinMeeting()">Join Meeting</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('joinExisting').onclick = function() {
+            // Replace with your pre-made Google Meet link
+            const existingMeetLink = 'https://meet.google.com/your-existing-meet-room';
+            window.location.href = existingMeetLink;
+        };
+
+        document.getElementById('joinSpecific').onclick = function() {
+            document.getElementById('joinSpecificForm').style.display = 'block';
+        };
+
+        function joinMeeting() {
+            const meetingCode = document.getElementById('meetingCode').value;
+            if (meetingCode) {
+                const meetLink = `https://meet.google.com/${meetingCode}`;
+                window.location.href = meetLink;
+            } else {
+                alert('Please enter a meeting code.');
+            }
+        }
+    </script>
+</body>
+</html>
